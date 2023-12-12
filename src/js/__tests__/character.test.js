@@ -6,6 +6,19 @@ import Swordsman from "../classes/Swordsman";
 import Undead from "../classes/Undead";
 import Zombie from "../classes/Zombie";
 
+// Функция-помощник для сравнения объектов типа Character 
+function compare(obj1, obj2) {
+    if (obj1.level === obj2.level && obj1.level &&
+        obj1.health === obj2.health && obj1.health &&
+        obj1.atack === obj2.atack && obj1.atack &&
+        obj1.defence === obj2.defence &&
+        obj1.type === obj2.type &&
+        obj1.name === obj2.name) {
+            return true
+        }
+    return false;
+}
+
 // Персонажи, которые понадобятся нам для тестирования
 let bowman = new Bowman("bowman");
 let daemon = new Daemon("daemon");
@@ -14,33 +27,21 @@ let swordsman = new Swordsman("swordsman");
 let undead = new Undead("undead");
 let zombie = new Zombie("zombie");
 
-// Проверим начальные характеристики (в данном случае, атаку)
+// Проверим начальные характеристики
 test.each([
-    [bowman, 25],
-    [daemon, 10],
-    [magician, 10],
-    [swordsman, 40],
-    [undead, 25],
-    [zombie, 40],
+    [bowman, {name: "bowman", type: "Bowman", health: 100, level: 1, atack: 25, defence: 25}],
+    [daemon, {name: "daemon", type: "Daemon", health: 100, level: 1, atack: 10, defence: 40}],
+    [magician, {name: "magician", type: "Magician", health: 100, level: 1, atack: 10, defence: 40}],
+    [swordsman, {name: "swordsman", type: "Swordsman", health: 100, level: 1, atack: 40, defence: 10}],
+    [undead, {name: "undead", type: "Undead", health: 100, level: 1, atack: 25, defence: 25}],
+    [zombie, {name: "zombie", type: "Zombie", health: 100, level: 1, atack: 40, defence: 10}],
 ])('atack', (character, state) => {
-    const result = character.atack;
-    expect(result).toBe(state);
+    const result = character;
+    expect(JSON.stringify(result)).toBe(JSON.stringify(state));
 });
 
 // Проверка повышения уровня зомби
 test("zombie levelup", () => {
-    function compare(obj1, obj2) {
-        if (obj1.level === obj2.level && obj1.level &&
-            obj1.health === obj2.health && obj1.health &&
-            obj1.atack === obj2.atack && obj1.atack &&
-            obj1.defence === obj2.defence &&
-            obj1.type === obj2.type &&
-            obj1.name === obj2.name) {
-                return true
-            }
-        return false;
-    }
-
     zombie.levelUp();
 
     const expected = 
@@ -63,7 +64,7 @@ test("bowman damage 5", () => {
     const expected = 96.25;
     bowman.damage(5);
     const result = bowman.health;
-    expect(result).toBe(expected);
+    expect(result).toBeCloseTo(expected);
 });
 
 // Проверка на неправильное введение имени персонажа

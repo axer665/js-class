@@ -8,7 +8,6 @@ export default class Character {
             "Undead", 
             "Zombie"
         ];
-        console.log(name);
         if (name.length > 10 || name.length < 2) {
             throw new Error("Имя персонаджа не может быть короче 2 символов и длиннее 10");
         } 
@@ -19,8 +18,8 @@ export default class Character {
         this.type = type;
         this.health = 100;
         this.level = 1;
-        this.atack = 1;
-        this.defence = 1;
+        this.atack = undefined;
+        this.defence = undefined;
     }
 
     levelUp = () => {
