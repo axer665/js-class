@@ -22,7 +22,7 @@ export default class Character {
         this.defence = undefined;
     }
 
-    levelUp = () => {
+    levelUp() {
         if (this.health > 0) {
             this.level++;
             this.atack += Number(this.atack) * 0.2;
@@ -33,7 +33,7 @@ export default class Character {
         }
     }
 
-    damage = (points) => {
+    damage(points) {
         if (this.health >= 0) {
             this.health -= points * (1 - Number(this.defence) / 100);
         }

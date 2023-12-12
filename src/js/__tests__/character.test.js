@@ -27,7 +27,7 @@ let swordsman = new Swordsman("swordsman");
 let undead = new Undead("undead");
 let zombie = new Zombie("zombie");
 
-// Проверим начальные характеристики
+// Правильно ли создаются наследники
 test.each([
     [bowman, {name: "bowman", type: "Bowman", health: 100, level: 1, atack: 25, defence: 25}],
     [daemon, {name: "daemon", type: "Daemon", health: 100, level: 1, atack: 10, defence: 40}],
@@ -37,7 +37,7 @@ test.each([
     [zombie, {name: "zombie", type: "Zombie", health: 100, level: 1, atack: 40, defence: 10}],
 ])('atack', (character, state) => {
     const result = character;
-    expect(JSON.stringify(result)).toBe(JSON.stringify(state));
+    expect(result).toEqual(state);
 });
 
 // Проверка повышения уровня зомби
